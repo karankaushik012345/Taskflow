@@ -1,0 +1,80 @@
+
+.wrapper { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: rgba(10,10,15,0.95);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 1.5rem 0.875rem;
+  position: fixed; top: 0; left: 0; bottom: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 0.5rem 2rem;
+}
+.logoIcon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 800; color: #fff;
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+.logoText {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem; font-weight: 700;
+  background: linear-gradient(135deg, #fff, #94a3b8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.nav { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+
+.link, .activeLink {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: var(--radius-sm);
+  font-size: 0.875rem; font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.15s; cursor: pointer;
+}
+.link:hover { background: var(--glass); color: var(--text-primary); }
+.activeLink {
+  background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(139,92,246,0.15));
+  color: #fff;
+  border: 1px solid rgba(99,102,241,0.3);
+  box-shadow: 0 0 12px rgba(99,102,241,0.1);
+}
+.navIcon { font-size: 1rem; width: 20px; text-align: center; }
+
+.divider { height: 1px; background: var(--border); margin: 0.75rem 0.5rem; }
+
+.userSection {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0.75rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  margin-top: auto;
+}
+.avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff; font-size: 0.72rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.userInfo { flex: 1; overflow: hidden; }
+.userName { display: block; color: var(--text-primary); font-size: 0.78rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.userEmail { display: block; color: var(--text-muted); font-size: 0.68rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.logoutBtn {
+  background: none; border: none; color: var(--text-muted);
+  cursor: pointer; font-size: 0.75rem; padding: 4px 6px;
+  border-radius: 4px; transition: color 0.15s;
+}
+.logoutBtn:hover { color: var(--red); }
+
+.main { flex: 1; margin-left: 220px; padding: 2rem; min-height: 100vh; position: relative; z-index: 1; }
