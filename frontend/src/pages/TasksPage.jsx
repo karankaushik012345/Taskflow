@@ -25,19 +25,29 @@ export default function TasksPage() {
   const [dragId,  setDragId]  = useState(null);
   const [dragOver,setDragOver]= useState(null);
   const [search,  setSearch]  = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [priority,setPriority]= useState("");
+
+  // Debounce: only push `search` into `debouncedSearch` after the user has
+  // paused typing for 400ms, instead of re-fetching on every keystroke.
+  // Each keystroke resets the timer (via the cleanup function), so only the
+  // final pause actually triggers a state change.
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search), 400);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   const fetchTasks = useCallback(async () => {
     setLoading(true);
     try {
       const params = {};
-      if (search)   params.search   = search;
-      if (priority) params.priority = priority;
+      if (debouncedSearch) params.search   = debouncedSearch;
+      if (priority)         params.priority = priority;
       const { data } = await taskService.getAll(params);
       setTasks(data.data);
     } catch { toast.error("Failed to load tasks"); }
     finally { setLoading(false); }
-  }, [search, priority]);
+  }, [debouncedSearch, priority]);
 
   useEffect(() => { fetchTasks(); }, [fetchTasks]);
 
@@ -89,7 +99,7 @@ export default function TasksPage() {
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select>
-        <button onClick={() => { setSearch(""); setPriority(""); }} className={styles.clearBtn}>Clear</button>
+        <button onClick={() => { setSearch(""); setDebouncedSearch(""); setPriority(""); }} className={styles.clearBtn}>Clear</button>
       </div>
 
       {loading ? (
@@ -138,21 +148,4 @@ export default function TasksPage() {
                           )}
                           <div className={styles.cardFooter}>
                             <span className={styles.dueDate + (overdue ? " " + styles.overdue : "")}>
-                              {due ? (overdue ? "Overdue: " : "Due: ") + due.toLocaleDateString() : "No due date"}
-                            </span>
-                            <span className={styles.cardDrag}>drag</span>
-                          </div>
-                        </div>
-                      );
-                    })
-                }
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {modal && <TaskModal task={editing} onClose={() => setModal(false)} onSubmit={editing ? handleUpdate : handleCreate} />}
-    </div>
-  );
-}
+                              {due ? (o
