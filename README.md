@@ -124,10 +124,4 @@ Most portfolio projects lack web safety checks. TaskFlow has been configured wit
 
 ---
 
-## 💬 Interview Discussion Notes (For Recruiters)
-
-When asked about **TaskFlow**, emphasize your focus on **performance optimization** and **session security**:
-*   **Question: "How does drag-and-drop state updating work without lag?"**
-    *   *Answer:* "Instead of fetching the entire task array from the database after a drop, we utilize **Optimistic UI Updates**. When a card is dragged, we update the React local state immediately, allowing a smooth slide animation. We then run the database PUT API call asynchronously in the background. If the API returns an error, we rollback the state and notify the user using a toast alert."
-*   **Question: "How do you protect your Mongo queries?"**
-    *   *Answer:* "We pass parameters through Mongoose, which sanitizes inputs by default, and utilize `express-mongo-sanitize` to block operators like `$gt` or `$ne`. Additionally, we run recursive XSS cleaning filters to sanitize text entries before they hit our schemas."
+"
